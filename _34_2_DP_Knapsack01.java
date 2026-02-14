@@ -3,20 +3,23 @@ import java.util.Arrays;
 public class _34_2_DP_Knapsack01 {
 
     public static int knapsack01_rec(int[] val, int[] wt, int W) {
-        int n = val.length;
-        if (W == 0 || n == 0) {
+        return knapsack01_rec(0, val, wt, W);
+    }
+
+    private static int knapsack01_rec(int curr, int[] val, int[] wt, int W) {
+        if (W == 0 || curr == val.length) {
             return 0;
         }
 
-        int res = knapsack01_rec(val, wt, W);
-        if (wt[n - 1] <= W) {
-            res = Math.max(res, val[n] + knapsack01_rec(val, wt, W - wt[n]));
+        int res = knapsack01_rec(curr + 1, val, wt, W);
+        if (wt[curr] <= W) {
+            res = Math.max(res, val[curr] + knapsack01_rec(curr + 1, val, wt, W - wt[curr]));
         }
 
         return res;
     }
 
-    public static int knapsack01_memoization(int[] val, int[] wt, int W) {
+    public static int knapsack01_mem(int[] val, int[] wt, int W) {
         int[][] dp = new int[val.length][W + 1];
         for (int i = 0; i < dp.length; i++) {
             Arrays.fill(dp[i], -1);
