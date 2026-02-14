@@ -2,19 +2,15 @@ import java.util.Arrays;
 
 public class _34_2_DP_Knapsack01 {
 
-    public static int knapsack01_recursion(int[] val, int[] wt, int W) {
-        return knapsack01_recursion_Util(val, wt, W);
-    }
-
-    private static int knapsack01_recursion_Util(int[] val, int[] wt, int W) {
+    public static int knapsack01_rec(int[] val, int[] wt, int W) {
         int n = val.length;
         if (W == 0 || n == 0) {
             return 0;
         }
 
-        int res = knapsack01_recursion_Util(val, wt, W);
+        int res = knapsack01_rec(val, wt, W);
         if (wt[n - 1] <= W) {
-            res = Math.max(res, val[n] + knapsack01_recursion_Util(val, wt, W - wt[n]));
+            res = Math.max(res, val[n] + knapsack01_rec(val, wt, W - wt[n]));
         }
 
         return res;
