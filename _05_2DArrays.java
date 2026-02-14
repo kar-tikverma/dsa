@@ -1,4 +1,4 @@
-public class _5_2DArrays {
+public class _05_2DArrays {
     public static void printMatrix(int arr[][]) {
         for(int i = 0; i < arr.length; i++) {
             for(int j = 0; j < arr[0].length; j++) {

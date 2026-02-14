@@ -1,4 +1,4 @@
-public class _7_BitManipulation{
+public class _07_BitManipulation{
     public static void BitOp(int a, int b){
         System.out.print(a + " & " + b + " (AND) = ");
         System.out.println(a & b);

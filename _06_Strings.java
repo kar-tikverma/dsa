@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.util.Arrays;
-public class _6_Strings{
+public class _06_Strings{
     static Scanner sc = new Scanner(System.in);
     public static void SingleWordInput(){
         System.out.print("Enter multiple words: ");

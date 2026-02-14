@@ -1,5 +1,5 @@
 //import java.util.*;
-public class _2_Functions_Methods {
+public class _02_Functions_Methods {
     public static int Reverse(int num) {
         int rev_num = 0;
         while(num!=0) {

@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-public class _4_SortingAlgorithms {
+public class _04_SortingAlgorithms {
     
     public static void bubbleSort(int arr[]) { // TC -> O(n^2)
         for(int pass = 0; pass < arr.length - 1; pass++) {

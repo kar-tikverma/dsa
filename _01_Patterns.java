@@ -1,4 +1,4 @@
-public class _1_Patterns {
+public class _01_Patterns {
 
     public static void HollowRectangle (int l, int b) {
         for (int i = 1; i <= b; i++) {
