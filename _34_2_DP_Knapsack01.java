@@ -43,7 +43,7 @@ public class _34_2_DP_Knapsack01 {
         return dp[n][W];
     }
 
-    public static int knapsack01_tabulation(int[] val, int[] wt, int W) { // TC -> O(n*W)
+    public static int knapsack01_tab(int[] val, int[] wt, int W) { // TC -> O(n*W)
         int n = val.length;
         int[][] dp = new int[n + 1][W + 1];
 
