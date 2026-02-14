@@ -1,8 +1,0 @@
-Constructors
-Destructors
-Garbage Collection
-Contructor Chaining
-Chapter 19 OOPS in Apna college course (Topic: Solved questions practice)
-    Important Questions: Q.No.: 8
-Chapter 19 OOPS in Apna college course (Topic: Practice Questions)
-    Important Questions: Q.No.: 4 (Associated file named: BlueCar.java is present in folder)
