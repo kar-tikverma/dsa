@@ -25,25 +25,19 @@ public class _34_2_DP_Knapsack01 {
             Arrays.fill(dp[i], -1);
         }
 
-        return knapsack01_memoization_Util(val.length - 1, dp, val, wt, W);
+        return knapsack01_mem(0, W, dp, val, wt);
     }
 
-    private static int knapsack01_memoization_Util(int n, int[][] dp, int[] val, int[] wt, int W) {
-        if (W == 0 || n == -1) {
+    private static int knapsack01_mem(int n, int W, int[][] dp, int[] val, int[] wt) {
+        if (W == 0 || n == val.length) {
             return 0;
         }
 
         if (dp[n][W] == -1) {
-            // include
-            int res1 = 0;
+            dp[n][W] = knapsack01_mem(n + 1, W, dp, val, wt);
             if (wt[n] <= W) {
-                res1 = val[n] + knapsack01_memoization_Util(n - 1, dp, val, wt, W - wt[n]);
+                dp[n][W] = Math.max(dp[n][W], val[n] + knapsack01_mem(n + 1, W - wt[n], dp, val, wt));
             }
-
-            // exclude
-            int res2 = knapsack01_memoization_Util(n - 1, dp, val, wt, W);
-
-            dp[n][W] = Math.max(res1, res2);
         }
 
         return dp[n][W];
