@@ -43,7 +43,7 @@ public class _34_2_DP_Knapsack01 {
         return dp[n][W];
     }
 
-    public static int knapsack01_tab(int[] val, int[] wt, int W) { // TC -> O(n*W)
+    public static int knapsack01_tab(int[] val, int[] weights, int W) { // TC -> O(n*W)
         int n = val.length;
         int[][] dp = new int[n + 1][W + 1];
 
@@ -52,10 +52,10 @@ public class _34_2_DP_Knapsack01 {
         for (int i = 1; i < n + 1; i++) {
             for (int j = 1; j < W + 1; j++) {
                 int v = val[i - 1]; // We write i-1 instead of i because of an extra row.
-                int w = wt[i - 1];
+                int wt = weights[i - 1];
 
-                if (w <= j) {
-                    dp[i][j] = Math.max(v + dp[i - 1][j - w], dp[i - 1][j]);
+                if (wt <= j) {
+                    dp[i][j] = Math.max(v + dp[i - 1][j - wt], dp[i - 1][j]);
                 } else {
                     dp[i][j] = dp[i - 1][j];
                 }
