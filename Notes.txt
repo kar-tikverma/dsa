@@ -1,0 +1,13 @@
+4 components/pillars of OOPS:
+    Abstraction
+    Encapsulation
+    Inheritance
+    Polymorphism
+
+In a class, if we don't initialize a varible of an object, then:
+    If the variable is of 'int' type, its value will be set to 0 by default.
+    If the variable is of 'char' type, its value will be set to '' (empty character) by default.
+    If the variable is of 'float' or 'double' type, its value will be set to 0.0 by default.
+    If the variable is of 'boolean' type, its value will be set to 'false' by default.
+    If the variable is of 'Integer', 'Float', 'Double', 'Character', 'Boolean' type, its value
+    will be set to 'null' by default.
