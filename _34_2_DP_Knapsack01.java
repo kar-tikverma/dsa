@@ -116,7 +116,7 @@ public class _34_2_DP_Knapsack01 {
         return dp[target];
     }
 
-    public static List<Integer> targetSum_returnAnySubset(int[] nums, int target) {
+    public static List<Integer> targetSumSubset_returnAnySubset(int[] nums, int target) {
         // Form the dp array
         int n = nums.length;
         boolean[][] dp = new boolean[n + 1][target + 1];
@@ -152,7 +152,7 @@ public class _34_2_DP_Knapsack01 {
         return res;
     }
 
-    public static List<Integer> targetSum_returnSmallestSubset(int[] nums, int target) {
+    public static List<Integer> targetSumSubset_returnSmallestSubset(int[] nums, int target) {
         int INF = (int) 1e9;
 
         // dp[j] = minimum elements needed to make sum j
