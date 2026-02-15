@@ -2,35 +2,35 @@ import java.util.*;
 
 public class _34_4_DP_LCS {
 
-    public static int longestCommonSubsequence_recursion(String str1, String str2) {
-        return LCS_recursion_Util(str1, str2, str1.length(), str2.length());
+    public static int longestCommonSubsequence_rec(String str1, String str2) {
+        return lcs_rec_Util(str1, str2, str1.length(), str2.length());
     }
 
-    private static int LCS_recursion_Util(String str1, String str2, int len1, int len2) {
+    private static int lcs_rec_Util(String str1, String str2, int len1, int len2) {
         if (len1 == 0 || len2 == 0) {
             return 0;
         }
 
         if (str1.charAt(len1 - 1) == str2.charAt(len2 - 1)) {
-            return 1 + LCS_recursion_Util(str1, str2, len1 - 1, len2 - 1);
+            return 1 + lcs_rec_Util(str1, str2, len1 - 1, len2 - 1);
         }
 
-        int res1 = LCS_recursion_Util(str1, str2, len1, len2 - 1);
-        int res2 = LCS_recursion_Util(str1, str2, len1 - 1, len2);
+        int res1 = lcs_rec_Util(str1, str2, len1, len2 - 1);
+        int res2 = lcs_rec_Util(str1, str2, len1 - 1, len2);
 
         return Math.max(res1, res2);
     }
 
-    public static int longestCommonSubsequence_memoization(String str1, String str2) {
+    public static int longestCommonSubsequence_mem(String str1, String str2) {
         int[][] dp = new int[str1.length() + 1][str2.length() + 1];
         for (int i = 0; i < dp.length; i++) {
             Arrays.fill(dp[i], -1);
         }
 
-        return LCS_memoization_Util(str1, str2, str1.length(), str2.length(), dp);
+        return lcs_mem_Util(str1, str2, str1.length(), str2.length(), dp);
     }
 
-    private static int LCS_memoization_Util(String str1, String str2, int len1, int len2, int[][] dp) {
+    private static int lcs_mem_Util(String str1, String str2, int len1, int len2, int[][] dp) {
         if (len1 == 0 || len2 == 0) {
             return 0;
         }
@@ -40,16 +40,16 @@ public class _34_4_DP_LCS {
         }
 
         if (str1.charAt(len1 - 1) == str2.charAt(len2 - 1)) {
-            return dp[len1][len2] = 1 + LCS_memoization_Util(str1, str2, len1 - 1, len2 - 1, dp);
+            return dp[len1][len2] = 1 + lcs_mem_Util(str1, str2, len1 - 1, len2 - 1, dp);
         }
 
-        int res1 = LCS_memoization_Util(str1, str2, len1, len2 - 1, dp);
-        int res2 = LCS_memoization_Util(str1, str2, len1 - 1, len2, dp);
+        int res1 = lcs_mem_Util(str1, str2, len1, len2 - 1, dp);
+        int res2 = lcs_mem_Util(str1, str2, len1 - 1, len2, dp);
 
         return dp[len1][len2] = Math.max(res1, res2);
     }
 
-    public static int longestCommonSubsequence_tabulation(String str1, String str2) {
+    public static int longestCommonSubsequence_tab(String str1, String str2) {
         int n = str1.length();
         int m = str2.length();
         int[][] dp = new int[n + 1][m + 1];
@@ -67,7 +67,7 @@ public class _34_4_DP_LCS {
         return dp[n][m];
     }
 
-    public static int longestCommonSubstring_tabulation(String str1, String str2) {
+    public static int longestCommonSubstring_tab(String str1, String str2) {
         int n = str1.length();
         int m = str2.length();
         int[][] dp = new int[n + 1][m + 1];
@@ -155,7 +155,7 @@ public class _34_4_DP_LCS {
     public static int stringConversion(String word1, String word2) {
         // Different from editDistance() as in this only insertion and deletion is
         // allowed and replacement is not.
-        int LCS = longestCommonSubsequence_tabulation(word1, word2);
+        int LCS = longestCommonSubsequence_tab(word1, word2);
         return word1.length() - LCS + word2.length() - LCS;
     }
 
