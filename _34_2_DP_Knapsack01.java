@@ -1,4 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class _34_2_DP_Knapsack01 {
 
@@ -65,9 +68,9 @@ public class _34_2_DP_Knapsack01 {
         return dp[n][W];
     }
 
-    public static boolean targetSumSubset_tabulation(int[] arr, int targetSum) { // TC -> O(n * targetSum)
+    public static boolean targetSumSubset_tabulation(int[] arr, int target) { // TC -> O(n * targetSum)
         int n = arr.length;
-        boolean[][] dp = new boolean[n + 1][targetSum + 1];
+        boolean[][] dp = new boolean[n + 1][target + 1];
 
         // Initialization 1
         for (int i = 0; i < n + 1; i++) {
@@ -78,7 +81,7 @@ public class _34_2_DP_Knapsack01 {
 
         // i = no. of items and j = target sum at that point
         for (int i = 1; i < n + 1; i++) {
-            for (int j = 1; j < targetSum + 1; j++) {
+            for (int j = 1; j < target + 1; j++) {
                 // exclude condition
                 if (dp[i - 1][j]) {
                     dp[i][j] = true;
@@ -93,7 +96,98 @@ public class _34_2_DP_Knapsack01 {
             }
         }
 
-        return dp[n][targetSum];
+        return dp[n][target];
+    }
+
+    public static boolean targetSumSubset_tab_optimised(int[] nums, int target) {
+        boolean[] dp = new boolean[target + 1];
+        dp[0] = true;
+
+        for (int num : nums) {
+            for (int i = target; i >= num; i--) {
+                dp[i] |= dp[i - num];
+            }
+
+            if (dp[target]) {
+                return true;
+            }
+        }
+
+        return dp[target];
+    }
+
+    public static List<Integer> targetSum_returnAnySubset(int[] nums, int target) {
+        // Form the dp array
+        int n = nums.length;
+        boolean[][] dp = new boolean[n + 1][target + 1];
+
+        for (int i = 0; i <= n; i++)
+            dp[i][0] = true;
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= target; j++) {
+                dp[i][j] = dp[i - 1][j];
+                if (j >= nums[i - 1]) {
+                    dp[i][j] |= dp[i - 1][j - nums[i - 1]];
+                }
+            }
+        }
+
+        if (!dp[n][target]) {
+            return Collections.emptyList();
+        }
+
+        // Backtrack
+        List<Integer> res = new ArrayList<>();
+        int i = n, j = target;
+
+        while (i > 0 && j > 0) {
+            if (j >= nums[i - 1] && dp[i - 1][j - nums[i - 1]]) {
+                res.add(nums[i - 1]);
+                j -= nums[i - 1];
+            }
+            i--;
+        }
+
+        return res;
+    }
+
+    public static List<Integer> targetSum_returnSmallestSubset(int[] nums, int target) {
+        int INF = (int) 1e9;
+
+        // dp[j] = minimum elements needed to make sum j
+        int[] dp = new int[target + 1];
+        // parent array to reconstruct
+        int[] parent = new int[target + 1];
+
+        Arrays.fill(dp, INF);
+        Arrays.fill(parent, -1);
+        dp[0] = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            for (int j = target; j >= num; j--) {
+                if (dp[j - num] + 1 < dp[j]) {
+                    dp[j] = dp[j - num] + 1;
+                    parent[j] = i;
+                }
+            }
+        }
+
+        if (dp[target] == INF)
+            return Collections.emptyList();
+
+        // Reconstruct
+        List<Integer> res = new ArrayList<>();
+        int j = target;
+
+        while (j > 0) {
+            int idx = parent[j];
+            res.add(nums[idx]);
+            j -= nums[idx];
+        }
+
+        return res;
     }
 
     public static void main(String[] args) {
