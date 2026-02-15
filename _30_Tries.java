@@ -7,7 +7,7 @@ public class _30_Tries {
         int freq;
         int level;
 
-        Node (int level) {
+        Node(int level) {
             for (int i = 0; i < children.length; i++) {
                 children[i] = null;
             }
@@ -17,19 +17,18 @@ public class _30_Tries {
     }
 
     public Node root = new Node(0);
-    
-    _30_Tries () {
+
+    _30_Tries() {
         root.freq = -1;
     }
 
-    void insert (String word) {
+    void insert(String word) {
         Node curr = root;
         for (int i = 0; i < word.length(); i++) {
             int idx = word.charAt(i) - 'a';
             if (curr.children[idx] == null) {
-                curr.children[idx] = new Node(curr.level + 1);                
-            }
-            else {
+                curr.children[idx] = new Node(curr.level + 1);
+            } else {
                 curr.children[idx].freq++;
             }
             curr = curr.children[idx];
@@ -37,7 +36,7 @@ public class _30_Tries {
         curr.eow = true;
     }
 
-    boolean contains (String word) { // TC -> O(L), L = length of longest word
+    boolean contains(String word) { // TC -> O(L), L = length of longest word
         Node curr = root;
         for (int i = 0; i < word.length(); i++) {
             int idx = word.charAt(i) - 'a';
@@ -50,21 +49,21 @@ public class _30_Tries {
         return curr.eow;
     }
 
-    void print () {
+    void print() {
         Queue<Node> q = new LinkedList<>();
         q.add(root);
         q.add(null);
 
-        while (! q.isEmpty()) {
+        while (!q.isEmpty()) {
             Node curr = q.poll();
 
             for (int i = 0; i < curr.children.length; i++) {
                 if (curr.children[i] != null) {
-                    System.out.print((char)('a' + i) + " ");
+                    System.out.print((char) ('a' + i) + " ");
                     q.add(curr.children[i]);
                 }
             }
-            
+
             if (q.peek() == null) {
                 q.poll();
                 if (q.peek() == null) {
@@ -76,11 +75,11 @@ public class _30_Tries {
         }
     }
 
-    static boolean wordBreak (String[] words, String key) {
+    static boolean wordBreak(String[] words, String key) {
         if (key.length() == 0) {
             return true;
         }
-        
+
         _30_Tries T = new _30_Tries();
         for (String string : words) {
             T.insert(string);
@@ -88,7 +87,8 @@ public class _30_Tries {
 
         return wB(T, key);
     }
-    private static boolean wB (_30_Tries T, String key) {
+
+    private static boolean wB(_30_Tries T, String key) {
         if (key.length() == 0) {
             return true;
         }
@@ -102,7 +102,7 @@ public class _30_Tries {
         return false;
     }
 
-    public static String[] uniquePrefix (String[] word) {
+    public static String[] uniquePrefix(String[] word) {
         if (word.length == 0) {
             return new String[0];
         }
@@ -111,7 +111,7 @@ public class _30_Tries {
         for (int i = 0; i < word.length; i++) {
             T.insert(word[i]);
         }
-        
+
         String[] prefix = new String[word.length];
         for (int i = 0; i < word.length; i++) {
             prefix[i] = uniqPf(word[i], T.root);
@@ -119,7 +119,8 @@ public class _30_Tries {
 
         return prefix;
     }
-    private static String uniqPf (String word, Node root) {
+
+    private static String uniqPf(String word, Node root) {
         StringBuilder res = new StringBuilder("");
         Node curr = root;
         for (int i = 0; i < word.length(); i++) {
@@ -133,7 +134,7 @@ public class _30_Tries {
         return null;
     }
 
-    static boolean startsWith (String[] word, String prefix) { // TC -> O(L)
+    static boolean startsWith(String[] word, String prefix) { // TC -> O(L)
         if (word.length == 0) {
             return false;
         }
@@ -155,22 +156,23 @@ public class _30_Tries {
         return true;
     }
 
-    static int countUniqueSubstrings (String str) {
+    static int countUniqueSubstrings(String str) {
         if (str.length() <= 1) {
             return str.length() + 1;
         }
 
         _30_Tries T = new _30_Tries();
-        
+
         // Find and insert all suffixes in the trie
         for (int i = 0; i < str.length(); i++) {
             T.insert(str.substring(i));
         }
 
         // Count the number of nodes in the trie
-        return countNodes (T.root);
+        return countNodes(T.root);
     }
-    private static int countNodes (Node root) {
+
+    private static int countNodes(Node root) {
         if (root == null) {
             return 0;
         }
@@ -185,23 +187,24 @@ public class _30_Tries {
         return count + 1;
     }
 
-    public static String longestWordWithAllPrefixes (String[] words) {
+    public static String longestWordWithAllPrefixes(String[] words) {
         if (words.length == 0) {
             return "";
         }
 
         _30_Tries T = new _30_Tries();
         for (String w : words) {
-            T.insert (w);
+            T.insert(w);
         }
 
         return LWAP(T.root, new StringBuilder(""));
     }
-    private static String LWAP (Node root, StringBuilder temp) {
+
+    private static String LWAP(Node root, StringBuilder temp) {
         String prefix = temp.toString();
         for (int i = 0; i < root.children.length; i++) {
             if (root.children[i] != null && root.children[i].eow) {
-                char ch = (char)(i + 'a');
+                char ch = (char) (i + 'a');
                 temp.append(ch);
 
                 String str = LWAP(root.children[i], temp);
@@ -215,8 +218,8 @@ public class _30_Tries {
         return prefix;
     }
 
-    public static void main (String[] args) {
-        String[] a = {"eat","tea","tan","ate","nat","bat"};
+    public static void main(String[] args) {
+        String[] a = { "eat", "tea", "tan", "ate", "nat", "bat" };
         TrieForAnagram T = new TrieForAnagram();
         System.out.println(T.groupAnagrams(a));
     }
@@ -226,30 +229,34 @@ class TrieNode {
     List<String> data;
     TrieNode[] children;
     boolean eow;
-    TrieNode () {
+
+    TrieNode() {
         data = new ArrayList<>();
         children = new TrieNode[26];
         eow = false;
     }
 }
+
 class TrieForAnagram {
     TrieNode root = new TrieNode();
     List<List<String>> res;
-    public List<List<String>> groupAnagrams (String[] strs) {
+
+    public List<List<String>> groupAnagrams(String[] strs) {
         res = new ArrayList<>();
         for (String word : strs) {
             buildTrie(word);
         }
-        dfs (root);
+        dfs(root);
         return res;
     }
-    public void buildTrie (String s) {
+
+    public void buildTrie(String s) {
         TrieNode curr = root;
         char[] word = s.toCharArray();
         Arrays.sort(word);
-        for(char ch : word) {
+        for (char ch : word) {
             TrieNode child = curr.children[ch - 'a'];
-            if(child == null) {
+            if (child == null) {
                 curr.children[ch - 'a'] = new TrieNode();
             }
             curr = curr.children[ch - 'a'];
@@ -257,6 +264,7 @@ class TrieForAnagram {
         curr.eow = true;
         curr.data.add(s);
     }
+
     public void dfs(TrieNode root) { // Depth First Search
         if (root.eow) {
             res.add(root.data);
