@@ -251,7 +251,8 @@ public class _34_4_DP_LCS {
 
     public static void main(String[] args) {
         // int[] arr = {50, 3, 10, 7, 40, 80};
-        System.out.println(wildcardMatching("abc", "**?b*"));
+        // System.out.println(wildcardMatching("abc", "**?b*"));
+        System.out.println(stringConversion("abcdef", "aceg"));
     }
 
     public static void print(int[][] arr) {
