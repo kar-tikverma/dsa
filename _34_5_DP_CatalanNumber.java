@@ -13,7 +13,7 @@ public class _34_5_DP_CatalanNumber {
         return res;
     }
 
-    public static int catalanNumber_memoization(int n) {
+    public static int catalanNumber_mem(int n) {
         int[] dp = new int[n + 1];
         dp[0] = dp[1] = 1;
 
@@ -32,7 +32,7 @@ public class _34_5_DP_CatalanNumber {
         return dp[n];
     }
 
-    public static int catalanNumber_tabulation(int n) { // TC -> O(n ^ 2)
+    public static int catalanNumber_tab(int n) { // TC -> O(n ^ 2)
         int[] dp = new int[n + 1];
         dp[0] = dp[1] = 1;
 
