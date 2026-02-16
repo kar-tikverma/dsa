@@ -74,12 +74,36 @@ public class _34_4_DP_LCS {
 
         int res = 0;
 
-        for (int i = 1; i < n + 1; i++) {
-            for (int j = 1; j < m + 1; j++) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
                 if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                     res = Math.max(res, dp[i][j]);
                 } // else dp[i][j] = 0;
+            }
+        }
+
+        return res;
+    }
+
+    public static int longestCommonSubstring_tab_optimized(String str1, String str2) {
+        int n = str1.length();
+        int m = str2.length();
+        int[] dp = new int[m + 1];
+        int res = 0;
+
+        for (int i = 1; i <= n; i++) {
+            int prev = dp[0];
+            for (int j = 1; j <= m; j++) {
+                int temp = dp[j];
+                if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                    dp[j] = prev + 1;
+                    res = Math.max(res, dp[j]);
+                } else {
+                    dp[j] = 0;
+                }
+
+                prev = temp;
             }
         }
 
