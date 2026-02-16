@@ -177,8 +177,8 @@ public class _34_4_DP_LCS {
     public static int stringConversion(String word1, String word2) {
         // Different from editDistance() as in this only insertion and deletion is
         // allowed and replacement is not.
-        int LCS = longestCommonSubsequence_tab(word1, word2);
-        return word1.length() - LCS + word2.length() - LCS;
+        int lcs = longestCommonSubsequence_tab(word1, word2);
+        return word1.length() - lcs + word2.length() - lcs;
     }
 
     // Leetcode #44
