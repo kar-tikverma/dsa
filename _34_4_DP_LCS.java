@@ -123,10 +123,10 @@ public class _34_4_DP_LCS {
         }
         Arrays.sort(temp);
 
-        return LCS(arr, temp);
+        return lcs(arr, temp);
     }
 
-    private static int LCS(int[] arr1, int[] arr2) {
+    private static int lcs(int[] arr1, int[] arr2) {
         int n = arr1.length;
         int m = arr2.length;
         int[][] dp = new int[n + 1][m + 1];
