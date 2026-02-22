@@ -6,11 +6,11 @@ class DisjointSet {
     private int[] par;
     private int[] rank;
 
-    public DisjointSet (int size) {
+    public DisjointSet(int size) {
         init(size);
     }
 
-    public void init (int size) {
+    public void init(int size) {
         this.n = size;
         par = new int[n];
         rank = new int[n];
@@ -19,7 +19,7 @@ class DisjointSet {
         }
     }
 
-    public int find (int x) {
+    public int find(int x) {
         if (x == par[x]) {
             return x;
         }
@@ -27,14 +27,13 @@ class DisjointSet {
         return par[x] = find(par[x]);
     }
 
-    public void union (int a, int b) {
-        int parA = find (a);
-        int parB = find (b);
+    public void union(int a, int b) {
+        int parA = find(a);
+        int parB = find(b);
 
         if (rank[parA] < rank[parB]) {
             par[parA] = parB;
-        }
-        else {
+        } else {
             par[parB] = parA;
             if (rank[parA] == rank[parB]) {
                 rank[parA]++;
@@ -50,13 +49,14 @@ public class _33_Graphs_DisjointSets {
         int dst;
         int wt;
 
-        Edge (int src, int dst, int wt) {
+        Edge(int src, int dst, int wt) {
             this.src = src;
             this.dst = dst;
             this.wt = wt;
         }
     }
-    static List<List<Edge>> createGraph () {
+
+    static List<List<Edge>> createGraph() {
         int v = 4;
         List<List<Edge>> graph = new ArrayList<>();
 
@@ -88,7 +88,6 @@ public class _33_Graphs_DisjointSets {
 
         // graph.get(6).add(new Edge(6, 5, 1));
 
-
         // graph.get(0).add(new Edge(0, 1, 5));
         // // graph.get(0).add(new Edge(0, 2, 1));
 
@@ -105,7 +104,6 @@ public class _33_Graphs_DisjointSets {
         // graph.get(4).add(new Edge(4, 2, 1));
         // graph.get(4).add(new Edge(4, 3, 1));
 
-
         // graph.get(0).add(new Edge(0, 2, 1));
         // graph.get(0).add(new Edge(0, 1, 1));
 
@@ -116,7 +114,7 @@ public class _33_Graphs_DisjointSets {
         return graph;
     }
 
-    public static int kruskalsAlgorithm (List<List<Edge>> graph) {
+    public static int kruskalsAlgorithm(List<List<Edge>> graph) {
         int V = graph.size();
         DisjointSet DS = new DisjointSet(V);
 
@@ -144,7 +142,7 @@ public class _33_Graphs_DisjointSets {
         return minCost;
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         List<List<Edge>> g = createGraph();
         System.out.println(kruskalsAlgorithm(g));
     }

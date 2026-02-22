@@ -1,9 +1,9 @@
 public class _16_Stack_usingLinkedList {
-
     private class Node {
         int data;
         Node next;
-        Node (int data) {
+
+        Node(int data) {
             this.data = data;
             this.next = null;
         }
@@ -11,8 +11,8 @@ public class _16_Stack_usingLinkedList {
 
     public Node top = null;
     public int size = 0;
-    
-    public void push (int data) {
+
+    public void push(int data) {
         Node newNode = new Node(data);
         size++;
         if (isEmpty()) {
@@ -23,7 +23,7 @@ public class _16_Stack_usingLinkedList {
         top = newNode;
     }
 
-    public int pop () {
+    public int pop() {
         if (isEmpty()) {
             System.out.println("Underflow!!");
             return Integer.MIN_VALUE;
@@ -34,7 +34,7 @@ public class _16_Stack_usingLinkedList {
         return val;
     }
 
-    public int peek () {
+    public int peek() {
         if (isEmpty()) {
             System.out.println("Underflow!!");
             return Integer.MIN_VALUE;
@@ -42,13 +42,13 @@ public class _16_Stack_usingLinkedList {
         return top.data;
     }
 
-    public boolean isEmpty () {
+    public boolean isEmpty() {
         return top == null;
     }
 
-    public void pushAtBottom (int data) {
+    public void pushAtBottom(int data) {
         if (top == null) {
-            push (data);
+            push(data);
             return;
         }
         int t = top.data;
@@ -56,15 +56,15 @@ public class _16_Stack_usingLinkedList {
         pushAtBottom(data);
         push(t);
     }
-    
-    public void printStack () {
+
+    public void printStack() {
         System.out.println(top.data + " <- top");
         for (Node i = top.next; i != null; i = i.next) {
             System.out.println(i.data);
         }
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         _16_Stack_usingLinkedList stk = new _16_Stack_usingLinkedList();
         stk.push(2);
         stk.push(4);

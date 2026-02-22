@@ -1,7 +1,8 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class _13_Arraylists {
-
     static Scanner sc = new Scanner(System.in);
 
     public static void printArrayList(ArrayList<Integer> list) {

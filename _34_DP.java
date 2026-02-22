@@ -3,34 +3,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class _34_DP {
-
     // Leetcode #2035
     // We can solve it using 0-1 knapsack only if negative numbers are not allowed.
     // Solution 1: Runtime = 394 ms (Beats 93.9%)
-    public static int minDiff_1 (int[] nums) {
+    public static int minDiff_1(int[] nums) {
         int n = nums.length;
         if (n == 2) {
             return Math.abs(nums[1] - nums[0]);
         }
-        int[][] lists1 = generate_1(Arrays.copyOfRange(nums, 0, n/2));
-        int[][] lists2 = generate_1(Arrays.copyOfRange(nums, n/2, n));
-        
+        int[][] lists1 = generate_1(Arrays.copyOfRange(nums, 0, n / 2));
+        int[][] lists2 = generate_1(Arrays.copyOfRange(nums, n / 2, n));
+
         int min = Integer.MAX_VALUE;
         for (int d = 1; d <= n / 2; d++) {
             int[] arr1 = lists1[d];
             int[] arr2 = lists2[d];
-            int i1 = 0, i2 = 0; // we use two pointers to find two elements in arr1, arr2 with minimum absolute difference
-            
+            int i1 = 0, i2 = 0; /*
+                                 * we use two pointers to find two elements in arr1, arr2 with minimum absolute
+                                 * difference
+                                 */
+
             while (i1 < arr1.length && i2 < arr1.length) {
                 int diff = arr1[i1] - arr2[i2];
                 min = Math.min(min, Math.abs(diff));
                 if (diff < 0) {
                     i1++;
-                }
-                else if (diff > 0) {
+                } else if (diff > 0) {
                     i2++;
-                }
-                else {
+                } else {
                     return 0;
                 }
             }
@@ -38,7 +38,8 @@ public class _34_DP {
 
         return min;
     }
-    private static int[][] generate_1 (int[] nums) {
+
+    private static int[][] generate_1(int[] nums) {
         int n = nums.length;
         int total = 0;
         for (int num : nums) {
@@ -73,10 +74,10 @@ public class _34_DP {
     }
 
     // Solution 2: Runtime = 189 ms (Beats 100%)
-    public static int minDiff (int[] nums) {
+    public static int minDiff(int[] nums) {
         int n = nums.length;
-        int[][] diff1 = generate(Arrays.copyOfRange(nums, 0, n/2));
-        int[][] diff2 = generate(Arrays.copyOfRange(nums, n/2, n));
+        int[][] diff1 = generate(Arrays.copyOfRange(nums, 0, n / 2));
+        int[][] diff2 = generate(Arrays.copyOfRange(nums, n / 2, n));
 
         int min = Integer.MAX_VALUE;
         for (int len = 1; len <= n / 2; len++) {
@@ -87,16 +88,17 @@ public class _34_DP {
             int r = 0;
 
             while (l < left.length && r < left.length) {
-                //arrays are already sorted so we move one pointer at a time to make the diff closer to 0
+                /*
+                 * arrays are already sorted so we move one pointer at a time to make the diff
+                 * closer to 0
+                 */
                 int diff = left[l] - right[r];
                 min = Math.min(min, Math.abs(diff));
                 if (diff < 0) {
                     l++;
-                }
-                else if (diff > 0) {
+                } else if (diff > 0) {
                     r++;
-                }
-                else {
+                } else {
                     return 0;
                 }
             }
@@ -104,7 +106,8 @@ public class _34_DP {
 
         return min;
     }
-    private static int[][] generate (int[] nums) {
+
+    private static int[][] generate(int[] nums) {
         int n = nums.length;
 
         int total = 0;
@@ -115,7 +118,7 @@ public class _34_DP {
         for (int i = 0; i < n; i++) {
             nums[i] <<= 1;
         }
-        
+
         int resSize = 1 << n;
         int[] sums = new int[resSize];
         sums[0] -= total;
@@ -145,19 +148,19 @@ public class _34_DP {
 
     // Leetcode #45
     // Solution 1: Runtime = 38 ms (Beats 21.2%)
-    public static int minimumJumps_1 (int[] nums) {
+    public static int minimumJumps_1(int[] nums) {
         int n = nums.length;
         int[] dp = new int[n];
 
-        for (int i = n-2; i >= 0; i--) {
+        for (int i = n - 2; i >= 0; i--) {
             if (nums[i] == 0) {
                 dp[i] = Integer.MAX_VALUE;
                 continue;
             }
             int min = Integer.MAX_VALUE;
-            for (int j = 1; j <= nums[i] && i+j < n; j++) {
-                if (dp[i+j] < min) {
-                    min = dp[i+j] + 1;
+            for (int j = 1; j <= nums[i] && i + j < n; j++) {
+                if (dp[i + j] < min) {
+                    min = dp[i + j] + 1;
                 }
             }
 
@@ -167,7 +170,7 @@ public class _34_DP {
     }
 
     // Solution 2: Runtime = 0 ms (Beats 100%)
-    public static int minimumJumps (int[] nums) {
+    public static int minimumJumps(int[] nums) {
         if (nums.length == 1) {
             return 0;
         }
@@ -180,7 +183,8 @@ public class _34_DP {
 
         return jumps;
     }
-    private static int returnMax (int[] nums, int start) {
+
+    private static int returnMax(int[] nums, int start) {
         int index = 0;
         int record = 0;
         for (int i = start; i <= (start + nums[start]); i++) {
@@ -189,7 +193,7 @@ public class _34_DP {
                 record = i + nums[i];
             }
         }
-        
+
         return index;
     }
 
@@ -217,7 +221,7 @@ public class _34_DP {
         return maxSum == Long.MIN_VALUE ? 0 : maxSum;
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         // int[] arr = {5,9,3,2,1,0,2,3,3,1,0,0};
         System.out.println();
         String a = "1234ABC!";

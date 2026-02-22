@@ -1,12 +1,16 @@
-import java.util.*;
-public class _22_BinarySearchTrees {
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
+public class _22_BinarySearchTrees {
     static class Node {
         int data;
         Node left;
         Node right;
 
-        Node (int data) {
+        Node(int data) {
             this.data = data;
             left = null;
             right = null;
@@ -14,17 +18,16 @@ public class _22_BinarySearchTrees {
     }
 
     static class BST {
-
         Node root = null;
 
-        void printLevelOrder () {
+        void printLevelOrder() {
             if (root == null) {
                 return;
             }
             Queue<Node> q = new LinkedList<>();
             q.add(root);
             q.add(null);
-            while (! q.isEmpty()) {
+            while (!q.isEmpty()) {
                 Node currNode = q.remove();
                 if (currNode == null) {
                     if (q.isEmpty()) {
@@ -45,29 +48,30 @@ public class _22_BinarySearchTrees {
             System.out.println();
         }
 
-        void buildBST (int[] values) {
+        void buildBST(int[] values) {
             for (int i = 0; i < values.length; i++) {
                 root = insertNewNode(root, values[i]);
             }
         }
-        private Node insertNewNode (Node root, int val) {
+
+        private Node insertNewNode(Node root, int val) {
             if (root == null) {
                 root = new Node(val);
                 return root;
             }
             if (val < root.data) {
                 root.left = insertNewNode(root.left, val);
-            }
-            else {
+            } else {
                 root.right = insertNewNode(root.right, val);
             }
             return root;
         }
 
-        Node search (int key) {
-            return search_Aux (root, key);
+        Node search(int key) {
+            return search_Aux(root, key);
         }
-        private Node search_Aux (Node root, int key) {
+
+        private Node search_Aux(Node root, int key) {
             if (root == null) {
                 return null;
             }
@@ -81,69 +85,68 @@ public class _22_BinarySearchTrees {
             return search_Aux(root.left, key);
         }
 
-        Node remove (int key) {
-            return remove_Aux (root, key);
+        Node remove(int key) {
+            return remove_Aux(root, key);
         }
-        private Node remove_Aux (Node root, int key) {
+
+        private Node remove_Aux(Node root, int key) {
             if (root == null) {
                 return null;
             }
             if (key > root.data) {
                 root.right = remove_Aux(root.right, key);
-            }
-            else if (key < root.data) {
+            } else if (key < root.data) {
                 root.left = remove_Aux(root.left, key);
-            }
-            else {
+            } else {
                 if (root.left == null && root.right == null) {
                     return null;
                 }
                 if (root.left == null) {
                     return root.right;
-                }
-                else if (root.right == null) {
+                } else if (root.right == null) {
                     return root.left;
                 }
 
-                Node IS = inorderSuccessor (root.right);
+                Node IS = inorderSuccessor(root.right);
                 root.data = IS.data;
                 root.right = remove_Aux(root.right, IS.data);
 
             }
             return root;
         }
-        private Node inorderSuccessor (Node root) {
+
+        private Node inorderSuccessor(Node root) {
             while (root.left != null) {
                 root = root.left;
             }
             return root;
         }
 
-        void printInRange (int start, int end) {
+        void printInRange(int start, int end) {
             printRange(root, start, end);
         }
-        private void printRange (Node root, int start, int end) {
+
+        private void printRange(Node root, int start, int end) {
             if (root == null) {
                 return;
             }
             if (root.data < start) {
                 printRange(root.right, start, end);
-            }
-            else if (root.data > end) {
+            } else if (root.data > end) {
                 printRange(root.left, start, end);
-            }
-            else {
+            } else {
                 printRange(root.left, start, end);
                 System.out.print(root.data + " ");
                 printRange(root.right, start, end);
             }
         }
 
-        void printRootTOLeafPaths () {
-            ArrayList <Integer> path = new ArrayList<>();
+        void printRootTOLeafPaths() {
+            ArrayList<Integer> path = new ArrayList<>();
             printRootTOLeafPaths_Aux(root, path);
         }
-        private void printRootTOLeafPaths_Aux (Node root, ArrayList <Integer> path) {
+
+        private void printRootTOLeafPaths_Aux(Node root, ArrayList<Integer> path) {
             if (root == null) {
                 return;
             }
@@ -151,37 +154,38 @@ public class _22_BinarySearchTrees {
             printRootTOLeafPaths_Aux(root.left, path);
             if (root.left == null && root.right == null) {
                 int i;
-                for (i = 0; i < path.size()-1; i++) {
+                for (i = 0; i < path.size() - 1; i++) {
                     System.out.print(path.get(i) + " -> ");
                 }
                 System.out.println(path.get(i));
             }
             printRootTOLeafPaths_Aux(root.right, path);
-            path.remove(path.size()-1);
+            path.remove(path.size() - 1);
         }
 
-        boolean isValidBST () {
+        boolean isValidBST() {
             Node min = null, max = null;
-            return isVB (root, min, max);
+            return isVB(root, min, max);
         }
-        private boolean isVB (Node root, Node min, Node max) {
+
+        private boolean isVB(Node root, Node min, Node max) {
             if (root == null) {
                 return true;
             }
             if (min != null && root.data <= min.data) {
                 return false;
-            }
-            else if (max != null && root.data >= max.data) {
+            } else if (max != null && root.data >= max.data) {
                 return false;
             }
-            
+
             return isVB(root.left, min, root) && isVB(root.right, root, max);
         }
 
-        void mirror () {
-            mirror (root);
+        void mirror() {
+            mirror(root);
         }
-        private void mirror (Node root) {
+
+        private void mirror(Node root) {
             if (root == null) {
                 return;
             }
@@ -194,38 +198,41 @@ public class _22_BinarySearchTrees {
             mirror(root.right);
         }
 
-        void buildBalancedBST (int[] values) { // TC -> O(n)
+        void buildBalancedBST(int[] values) { // TC -> O(n)
             Arrays.sort(values);
-            root = buildBalancedBST_Aux(values, 0, values.length-1);
+            root = buildBalancedBST_Aux(values, 0, values.length - 1);
         }
-        private Node buildBalancedBST_Aux (int[] values, int start, int end) {
+
+        private Node buildBalancedBST_Aux(int[] values, int start, int end) {
             if (start > end) {
                 return null;
             }
-            int mid = start + (end - start)/2;
+            int mid = start + (end - start) / 2;
             Node root = new Node(values[mid]);
-            root.left = buildBalancedBST_Aux(values, start, mid-1);
-            root.right = buildBalancedBST_Aux(values, mid+1, end);
+            root.left = buildBalancedBST_Aux(values, start, mid - 1);
+            root.right = buildBalancedBST_Aux(values, mid + 1, end);
             return root;
         }
 
-        Node toBalancedBST () { // TC -> O(n)
+        Node toBalancedBST() { // TC -> O(n)
             ArrayList<Integer> inorder = new ArrayList<>();
             inorderTraverse(root, inorder);
 
-            return toBalBST(inorder, 0, inorder.size()-1);
+            return toBalBST(inorder, 0, inorder.size() - 1);
         }
-        private Node toBalBST (ArrayList<Integer> values, int start, int end) {
+
+        private Node toBalBST(ArrayList<Integer> values, int start, int end) {
             if (start > end) {
                 return null;
             }
-            int mid = start + (end - start)/2;
+            int mid = start + (end - start) / 2;
             Node root = new Node(values.get(mid));
-            root.left = toBalBST(values, start, mid-1);
-            root.right = toBalBST(values, mid+1, end);
+            root.left = toBalBST(values, start, mid - 1);
+            root.right = toBalBST(values, mid + 1, end);
             return root;
         }
-        private void inorderTraverse (Node root, ArrayList<Integer> inorder) {
+
+        private void inorderTraverse(Node root, ArrayList<Integer> inorder) {
             if (root == null) {
                 return;
             }
@@ -240,18 +247,22 @@ public class _22_BinarySearchTrees {
             int min;
             int max;
 
-            Info () {}
-            Info (boolean valid, int s, int min, int max) {
+            Info() {
+            }
+
+            Info(boolean valid, int s, int min, int max) {
                 this.validBST = valid;
                 this.size = s;
                 this.min = min;
                 this.max = max;
             }
         }
-        int largestBST () {
+
+        int largestBST() {
             return largestBST(root).size;
         }
-        private Info largestBST (Node root) {
+
+        private Info largestBST(Node root) {
             if (root == null) {
                 return new Info(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE);
             }
@@ -259,32 +270,31 @@ public class _22_BinarySearchTrees {
             Info rightInfo = largestBST(root.right);
             Info currInfo = new Info();
 
-            if (leftInfo.validBST == true && rightInfo.validBST == true && root.data < rightInfo.min && root.data > leftInfo.max) {
+            if (leftInfo.validBST == true && rightInfo.validBST == true && root.data < rightInfo.min
+                    && root.data > leftInfo.max) {
                 currInfo.validBST = true;
                 currInfo.size = leftInfo.size + rightInfo.size + 1;
-                currInfo.min = Math.min (Math.min (leftInfo.min, rightInfo.min), root.data);
-                currInfo.max = Math.max (Math.max (leftInfo.max, rightInfo.max), root.data);
-            }
-            else {
+                currInfo.min = Math.min(Math.min(leftInfo.min, rightInfo.min), root.data);
+                currInfo.max = Math.max(Math.max(leftInfo.max, rightInfo.max), root.data);
+            } else {
                 currInfo.validBST = false;
                 currInfo.size = Math.max(leftInfo.size, rightInfo.size);
             }
             return currInfo;
         }
 
-        Node mergeBSTs (BST tree) { // TC -> O(n + m)
-            ArrayList <Integer> inorder1 = new ArrayList<>();
-            ArrayList <Integer> inorder2 = new ArrayList<>();
+        Node mergeBSTs(BST tree) { // TC -> O(n + m)
+            ArrayList<Integer> inorder1 = new ArrayList<>();
+            ArrayList<Integer> inorder2 = new ArrayList<>();
             inorderTraverse(root, inorder1);
             inorderTraverse(tree.root, inorder2);
 
-            ArrayList <Integer> inorder = new ArrayList<>();
+            ArrayList<Integer> inorder = new ArrayList<>();
             int i = 0, j = 0;
             while (i < inorder1.size() && j < inorder2.size()) {
                 if (inorder1.get(i) < inorder2.get(j)) {
                     inorder.add(inorder1.get(i++));
-                }
-                else {
+                } else {
                     inorder.add(inorder2.get(j++));
                 }
             }
@@ -295,13 +305,14 @@ public class _22_BinarySearchTrees {
                 inorder.add(inorder2.get(j++));
             }
 
-            return toBalBST (inorder, 0, inorder.size()-1);
+            return toBalBST(inorder, 0, inorder.size() - 1);
         }
 
-        int rangeSum (int start, int end) {
+        int rangeSum(int start, int end) {
             return rangeSum_Aux(root, start, end);
         }
-        private int rangeSum_Aux (Node root, int start, int end) {
+
+        private int rangeSum_Aux(Node root, int start, int end) {
             if (root == null) {
                 return 0;
             }
@@ -316,20 +327,20 @@ public class _22_BinarySearchTrees {
                     + rangeSum_Aux(root.right, start, end) + root.data;
         }
 
-        int closestElement (int K) {
+        int closestElement(int K) {
             return closestE(root, K).data;
         }
-        private Node closestE (Node root, int K) {
+
+        private Node closestE(Node root, int K) {
             if (root == null) {
                 return null;
             }
-            
+
             if (root.data > K) {
                 Node left = closestE(root.left, K);
                 if (left != null && Math.abs(root.data - K) > Math.abs(K - left.data)) {
                     return left;
-                }
-                else {
+                } else {
                     return root;
                 }
             }
@@ -337,15 +348,14 @@ public class _22_BinarySearchTrees {
                 Node right = closestE(root.right, K);
                 if (right != null && Math.abs(root.data - K) > Math.abs(K - right.data)) {
                     return right;
-                }
-                else {
+                } else {
                     return root;
                 }
             }
             return root;
         }
 
-        int KthSmallest (int K) {
+        int KthSmallest(int K) {
             Node res = inorder(root, K);
             if (res == null) {
                 System.out.println("There are less than " + K + " nodes in the tree.");
@@ -353,8 +363,10 @@ public class _22_BinarySearchTrees {
             }
             return res.data;
         }
+
         int count = 0;
-        private Node inorder (Node root, int K) {
+
+        private Node inorder(Node root, int K) {
             if (root == null) {
                 return null;
             }
@@ -370,7 +382,7 @@ public class _22_BinarySearchTrees {
             return inorder(root.right, K);
         }
 
-        int countPairs (BST tree, int pairSum) { // IMPORTANT
+        int countPairs(BST tree, int pairSum) { // IMPORTANT
             if (root == null || tree.root == null) {
                 return 0;
             }
@@ -387,7 +399,8 @@ public class _22_BinarySearchTrees {
                     st2.push(tree.root);
                     tree.root = tree.root.right;
                 }
-                if (st1.empty() || st2.empty()) break;
+                if (st1.empty() || st2.empty())
+                    break;
                 top1 = st1.peek();
                 top2 = st2.peek();
                 if ((top1.data + top2.data) == pairSum) {
@@ -396,12 +409,10 @@ public class _22_BinarySearchTrees {
                     st2.pop();
                     root = top1.right;
                     tree.root = top2.left;
-                }
-                else if ((top1.data + top2.data) < pairSum) {
+                } else if ((top1.data + top2.data) < pairSum) {
                     st1.pop();
                     root = top1.right;
-                }
-                else {
+                } else {
                     st2.pop();
                     tree.root = top2.left;
                 }
@@ -416,9 +427,10 @@ public class _22_BinarySearchTrees {
             int sum;
             int currmax;
 
-            INFO () {}
+            INFO() {
+            }
 
-            INFO (int m, int mi, boolean is, int su, int cur) {
+            INFO(int m, int mi, boolean is, int su, int cur) {
                 max = m;
                 min = mi;
                 isBST = is;
@@ -426,22 +438,25 @@ public class _22_BinarySearchTrees {
                 currmax = cur;
             }
         }
+
         static class INT {
             int a;
         }
-        int MaxSumBST (Node root) {
+
+        int MaxSumBST(Node root) {
             INT maxsum = new INT();
             maxsum.a = Integer.MIN_VALUE;
-            return MaxSumBSTUtil (root, maxsum).currmax;
+            return MaxSumBSTUtil(root, maxsum).currmax;
         }
-        private INFO MaxSumBSTUtil (Node root, INT maxsum) {
+
+        private INFO MaxSumBSTUtil(Node root, INT maxsum) {
             if (root == null) {
-                return new INFO (Integer.MIN_VALUE, Integer.MAX_VALUE, true, 0, 0);
+                return new INFO(Integer.MIN_VALUE, Integer.MAX_VALUE, true, 0, 0);
             }
 
             if (root.left == null && root.right == null) {
                 maxsum.a = Math.max(maxsum.a, root.data);
-                return new INFO(root.data, root.data,true, root.data, maxsum.a );
+                return new INFO(root.data, root.data, true, root.data, maxsum.a);
             }
             INFO L = MaxSumBSTUtil(root.left, maxsum);
             INFO R = MaxSumBSTUtil(root.right, maxsum);
@@ -462,9 +477,9 @@ public class _22_BinarySearchTrees {
         }
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         BST tree = new BST();
-        int[] v = {20, 8, 22, 4, 12, 10, 14};
+        int[] v = { 20, 8, 22, 4, 12, 10, 14 };
         tree.buildBalancedBST(v);
 
         tree.root = new Node(5);
@@ -491,9 +506,9 @@ public class _22_BinarySearchTrees {
         t2.root.left.right = new Node(8);
         t2.root.right.right = new Node(18);
         t2.root.right.left = new Node(11);
-        
+
         // tree.printLevelOrder();
-        System.out.println(tree.countPairs (t2, 16));
+        System.out.println(tree.countPairs(t2, 16));
         // tree.printLevelOrder();
     }
 }

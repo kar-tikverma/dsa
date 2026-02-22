@@ -1,11 +1,10 @@
 public class _15_DoubleLL {
-
     private class Node {
         int data;
         Node next;
         Node prev;
 
-        Node (int data) {
+        Node(int data) {
             this.data = data;
             this.next = null;
             this.prev = null;
@@ -16,7 +15,7 @@ public class _15_DoubleLL {
     public Node tail = null;
     public int size = 0;
 
-    public void addFirst (int data) {
+    public void addFirst(int data) {
         Node newNode = new Node(data);
         size++;
         if (head == null) {
@@ -28,7 +27,7 @@ public class _15_DoubleLL {
         head = newNode;
     }
 
-    public void addLast (int data) {
+    public void addLast(int data) {
         Node newNode = new Node(data);
         size++;
         if (head == null) {
@@ -40,7 +39,7 @@ public class _15_DoubleLL {
         tail = newNode;
     }
 
-    public int removeFirst () {
+    public int removeFirst() {
         if (head == null) {
             System.out.println("DLL is empty");
             return Integer.MIN_VALUE;
@@ -49,15 +48,14 @@ public class _15_DoubleLL {
         head = head.next;
         if (size > 1) {
             head.prev = null;
-        }
-        else {
+        } else {
             tail = null;
         }
         size--;
         return val;
     }
 
-    public void reverse () {
+    public void reverse() {
         Node prev = null;
         Node curr = head;
         while (curr != null) {
@@ -71,7 +69,7 @@ public class _15_DoubleLL {
         head = prev;
     }
 
-    public void printLL () {
+    public void printLL() {
         Node temp = head;
         while (temp != null) {
             System.out.print(temp.data + " <-> ");
@@ -79,7 +77,8 @@ public class _15_DoubleLL {
         }
         System.out.println("null");
     }
-    public void printLL_Reverse () {
+
+    public void printLL_Reverse() {
         Node temp = tail;
         while (temp != null) {
             System.out.print(temp.data + " <-> ");
@@ -88,7 +87,7 @@ public class _15_DoubleLL {
         System.out.println("null");
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         _15_DoubleLL dll = new _15_DoubleLL();
         dll.addLast(2);
         dll.addLast(1);

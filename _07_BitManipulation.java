@@ -1,5 +1,5 @@
-public class _07_BitManipulation{
-    public static void BitOp(int a, int b){
+public class _07_BitManipulation {
+    public static void BitOp(int a, int b) {
         System.out.print(a + " & " + b + " (AND) = ");
         System.out.println(a & b);
         System.out.print(a + " | " + b + " (OR) = ");
@@ -37,7 +37,7 @@ public class _07_BitManipulation{
     }
 
     public static int clear_ith_bit(int n, int i) {
-        int bitMask = ~ (1 << i);
+        int bitMask = ~(1 << i);
         return n & bitMask;
     }
 
@@ -60,7 +60,7 @@ public class _07_BitManipulation{
     }
 
     public static boolean is2_pow_n(int n) {
-        return (n & n-1) == 0;
+        return (n & n - 1) == 0;
     }
 
     public static int countSetBits(int n) { // O(b) where b is the no. of bits
@@ -72,15 +72,16 @@ public class _07_BitManipulation{
 
         return count;
     }
+
     public static int BrianKernighanAlgorithm(int n) { // O(k) where k is the number of set bits
         int count = 0;
         while (n != 0) {
             n &= (n - 1); // Removes the rightmost set bit.
             count++;
         }
-        
+
         return count;
-    }    
+    }
 
     public static int fastExponentiation(int a, int pow) { // Time Complexity -> O(log(2)n)
         int res = 1;
@@ -112,13 +113,13 @@ public class _07_BitManipulation{
         StringBuilder lower = new StringBuilder();
 
         for (int i = 0; i < letters.length; i++) {
-            lower.append((char)(letters[i] | ' '));
+            lower.append((char) (letters[i] | ' '));
         }
 
         return lower.toString();
     }
-    
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
         System.out.println(toLower("NJKBDeuiuwb[]BUDEB''' 27497"));
     }
 }

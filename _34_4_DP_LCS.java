@@ -1,7 +1,7 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class _34_4_DP_LCS {
-
     public static int longestCommonSubsequence_rec(String str1, String str2) {
         return lcs_rec_Util(str1, str2, str1.length(), str2.length());
     }
@@ -195,7 +195,7 @@ public class _34_4_DP_LCS {
             if (pattern.charAt(j - 1) != '*') {
                 break;
             }
-            
+
             dp[0][j] = true;
         }
 

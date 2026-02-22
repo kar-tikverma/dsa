@@ -1,5 +1,4 @@
 public class _34_6_DP_Matrices {
-
     public static int minCostOfMatrixChainMultiplication_recursion(int[] arr) {
         return mcm_rec_Util(1, arr.length - 1, arr);
     }

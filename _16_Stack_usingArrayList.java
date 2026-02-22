@@ -1,19 +1,18 @@
 import java.util.ArrayList;
+
 public class _16_Stack_usingArrayList {
-
     public static class Stack {
-
         ArrayList<Integer> list = new ArrayList<>();
 
-        public boolean isEmpty () {
+        public boolean isEmpty() {
             return list.size() == 0;
         }
 
-        public void push (int data) {
+        public void push(int data) {
             list.add(data);
         }
 
-        public int pop () {
+        public int pop() {
             if (isEmpty()) {
                 return -1;
             }
@@ -22,15 +21,16 @@ public class _16_Stack_usingArrayList {
             return top;
         }
 
-        public int peek () {
+        public int peek() {
             if (isEmpty()) {
                 return -1;
             }
-            return list.get (list.size() - 1);
+            return list.get(list.size() - 1);
         }
-        
+
     }
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
         Stack stk = new Stack();
         stk.push(1);
         stk.push(2);

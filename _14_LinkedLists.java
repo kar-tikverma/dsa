@@ -1,10 +1,9 @@
 public class _14_LinkedLists {
-
     private class Node {
         private int data;
         Node next;
 
-        public Node (int data) {
+        public Node(int data) {
             this.data = data;
             this.next = null;
         }
@@ -14,7 +13,7 @@ public class _14_LinkedLists {
     private Node tail = null;
     private int size = 0;
 
-    public void addFirst (int data) {
+    public void addFirst(int data) {
         Node newNode = new Node(data);
         size++;
         if (head == null) {
@@ -25,7 +24,7 @@ public class _14_LinkedLists {
         head = newNode;
     }
 
-    public void addLast (int data) {
+    public void addLast(int data) {
         Node newNode = new Node(data);
         size++;
         if (head == null) {
@@ -36,7 +35,7 @@ public class _14_LinkedLists {
         tail = newNode;
     }
 
-    public void add (int index, int data) {
+    public void add(int index, int data) {
         Node newNode = new Node(data);
         if (index == 0) {
             addFirst(data);
@@ -61,12 +60,12 @@ public class _14_LinkedLists {
         temp.next = newNode;
     }
 
-    public int removeFirst () {
+    public int removeFirst() {
         if (size == 0) {
             System.out.println("Linked List is empty");
             return Integer.MIN_VALUE;
         }
-        if (size == 1){
+        if (size == 1) {
             tail = null;
         }
         int val = head.data;
@@ -75,7 +74,7 @@ public class _14_LinkedLists {
         return val;
     }
 
-    public int removeLast () {
+    public int removeLast() {
         if (size == 0) {
             System.out.println("Linked List is empty");
             return Integer.MIN_VALUE;
@@ -94,7 +93,7 @@ public class _14_LinkedLists {
         return val;
     }
 
-    public int search_Iteration (int key) { // O(n)
+    public int search_Iteration(int key) { // O(n)
         Node curr = head;
         for (int i = 0; curr != null; i++) {
             if (curr.data == key) {
@@ -105,10 +104,11 @@ public class _14_LinkedLists {
         return -1;
     }
 
-    public int search_Recursion (int key) {
-        return search_Recursion_Aux (key, head);
+    public int search_Recursion(int key) {
+        return search_Recursion_Aux(key, head);
     }
-    public int search_Recursion_Aux (int key, Node head) {
+
+    public int search_Recursion_Aux(int key, Node head) {
         if (head == null) {
             return -1;
         }
@@ -122,7 +122,7 @@ public class _14_LinkedLists {
         return idx + 1;
     }
 
-    public void Reverse () { // O(n)
+    public void Reverse() { // O(n)
         Node prev = null;
         Node curr = tail = head;
         Node next;
@@ -135,7 +135,7 @@ public class _14_LinkedLists {
         head = prev;
     }
 
-    public void remove_NthfromEnd (int n) {
+    public void remove_NthfromEnd(int n) {
         if (n >= size) {
             head = head.next;
         }
@@ -146,7 +146,7 @@ public class _14_LinkedLists {
         curr.next = curr.next.next;
     }
 
-    public boolean isPalindrome () {
+    public boolean isPalindrome() {
         if (head == null || head.next == null) {
             return true;
         }
@@ -178,7 +178,7 @@ public class _14_LinkedLists {
     }
 
     // Slow-Fast Approach (Sometimes called Turtle-Hare)
-    private Node findMid () { // O(n)
+    private Node findMid() { // O(n)
         Node slow = head;
         Node fast = head;
         while (fast != null && fast.next != null) {
@@ -188,7 +188,7 @@ public class _14_LinkedLists {
         return slow;
     }
 
-    public boolean containsCycle () {
+    public boolean containsCycle() {
         Node slow = head;
         Node fast = head;
         while (fast != null && fast.next != null) {
@@ -201,7 +201,7 @@ public class _14_LinkedLists {
         return false;
     }
 
-    public void removeCycle () {
+    public void removeCycle() {
         Node slow = head;
         Node fast = head;
         boolean cycle = false;
@@ -226,11 +226,11 @@ public class _14_LinkedLists {
         prev.next = null;
     }
 
-    public Node mergeSort (Node head) {
+    public Node mergeSort(Node head) {
         if (head == null || head.next == null) {
             return head;
         }
-        //find mid
+        // find mid
         Node mid = getMid();
         Node rightH = mid.next;
         mid.next = null;
@@ -238,7 +238,8 @@ public class _14_LinkedLists {
         Node newRight = mergeSort(rightH);
         return merge(newLeft, newRight);
     }
-    private Node merge (Node head1, Node head2) {
+
+    private Node merge(Node head1, Node head2) {
         Node mergedLL = new Node(-1);
         Node temp = mergedLL;
         while (head1 != null && head2 != null) {
@@ -246,8 +247,7 @@ public class _14_LinkedLists {
                 temp.next = head1;
                 head1 = head1.next;
                 temp = temp.next;
-            }
-            else {
+            } else {
                 temp.next = head2;
                 head2 = head2.next;
                 temp = temp.next;
@@ -265,7 +265,8 @@ public class _14_LinkedLists {
         }
         return mergedLL.next;
     }
-    private Node getMid () {
+
+    private Node getMid() {
         Node slow = head;
         Node fast = head.next;
         while (fast != null && fast.next != null) {
@@ -275,7 +276,7 @@ public class _14_LinkedLists {
         return slow;
     }
 
-    public void toZigZag () {
+    public void toZigZag() {
         if (head == null || head.next == null) {
             return;
         }
@@ -301,13 +302,13 @@ public class _14_LinkedLists {
 
             head1 = next1;
             head2 = next2;
-            
+
         }
     }
 
-    public Node findIntersection (_14_LinkedLists LL) {
+    public Node findIntersection(_14_LinkedLists LL) {
         for (Node temp = head; temp != null; temp = temp.next) {
-            for (Node tempLL = LL.head; tempLL != null; tempLL = tempLL.next){
+            for (Node tempLL = LL.head; tempLL != null; tempLL = tempLL.next) {
                 if (temp == tempLL) {
                     return temp;
                 }
@@ -316,7 +317,7 @@ public class _14_LinkedLists {
         return null;
     }
 
-    public void evenThenOdd () {
+    public void evenThenOdd() {
         if (head == null || head.next == null) {
             return;
         }
@@ -338,8 +339,7 @@ public class _14_LinkedLists {
                 prev = temp;
                 temp = temp.next;
                 prev.next = null;
-            }
-            else {
+            } else {
                 prev = temp;
                 temp = temp.next;
                 lastEven = prev;
@@ -349,7 +349,7 @@ public class _14_LinkedLists {
         lastEven.next = OddHead.next;
     }
 
-    public void printLL () {
+    public void printLL() {
         Node temp = head;
         while (temp != null) {
             System.out.print(temp.data + " -> ");
@@ -357,7 +357,8 @@ public class _14_LinkedLists {
         }
         System.out.println("null");
     }
-    public void printLL (Node head) {
+
+    public void printLL(Node head) {
         Node temp = head;
         while (temp != null) {
             System.out.print(temp.data + " -> ");
@@ -365,8 +366,8 @@ public class _14_LinkedLists {
         }
         System.out.println("null");
     }
-    
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
         _14_LinkedLists ll = new _14_LinkedLists();
         ll.addFirst(0);
         ll.addLast(1);

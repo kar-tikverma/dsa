@@ -1,44 +1,41 @@
 import java.util.ArrayList;
 
 public class _25_2_HeapTypes {
-    
     static class MinHeap {
-
         ArrayList<Integer> heap = new ArrayList<>();
 
-        void add (int data) { // TC -> O(log2n)
-            heap.add (data);
+        void add(int data) { // TC -> O(log2n)
+            heap.add(data);
 
             int idx = heap.size() - 1;
-            while (idx > 0 && heap.get(idx) < heap.get((idx-1)/2)) {
+            while (idx > 0 && heap.get(idx) < heap.get((idx - 1) / 2)) {
                 int temp = heap.get(idx);
-                heap.set (idx, heap.get((idx-1)/2));
-                heap.set ((idx-1)/2, temp);
+                heap.set(idx, heap.get((idx - 1) / 2));
+                heap.set((idx - 1) / 2, temp);
 
-                idx = (idx-1) / 2;
+                idx = (idx - 1) / 2;
             }
         }
 
-        int peek () {
+        int peek() {
             return heap.get(0);
         }
 
-        int remove () { // TC -> O(log2n)
+        int remove() { // TC -> O(log2n)
             int val = heap.get(0);
-            heap.set (0, heap.get(heap.size()-1));
-            heap.remove (heap.size()-1);
+            heap.set(0, heap.get(heap.size() - 1));
+            heap.remove(heap.size() - 1);
 
-            heapify (0);
+            heapify(0);
 
             return val;
         }
-        
-        private void heapify (int root) { // TC -> O(log2n)
 
-            int left = 2*root + 1;
+        private void heapify(int root) { // TC -> O(log2n)
+            int left = 2 * root + 1;
             int right = left + 1;
             int minIdx = root;
-            
+
             if (left < heap.size() && heap.get(left) < heap.get(minIdx)) {
                 minIdx = left;
             }
@@ -48,15 +45,15 @@ public class _25_2_HeapTypes {
 
             if (minIdx != root) {
                 int temp = heap.get(root);
-                heap.set (root, heap.get(minIdx));
-                heap.set (minIdx, temp);
+                heap.set(root, heap.get(minIdx));
+                heap.set(minIdx, temp);
 
-                heapify (minIdx);
+                heapify(minIdx);
             }
         }
 
-        void printHeap () {
-            while (! heap.isEmpty()) {
+        void printHeap() {
+            while (!heap.isEmpty()) {
                 System.out.println(remove());
             }
         }
@@ -66,39 +63,39 @@ public class _25_2_HeapTypes {
 
         ArrayList<Integer> heap = new ArrayList<>();
 
-        void add (int data) { // TC -> O(log2n)
-            heap.add (data);
+        void add(int data) { // TC -> O(log2n)
+            heap.add(data);
 
             int idx = heap.size() - 1;
-            while (idx > 0 && heap.get(idx) > heap.get((idx-1)/2)) {
+            while (idx > 0 && heap.get(idx) > heap.get((idx - 1) / 2)) {
                 int temp = heap.get(idx);
-                heap.set (idx, heap.get((idx-1)/2));
-                heap.set ((idx-1)/2, temp);
+                heap.set(idx, heap.get((idx - 1) / 2));
+                heap.set((idx - 1) / 2, temp);
 
-                idx = (idx-1) / 2;
+                idx = (idx - 1) / 2;
             }
         }
 
-        int peek () {
+        int peek() {
             return heap.get(0);
         }
 
-        int remove () { // TC -> O(log2n)
+        int remove() { // TC -> O(log2n)
             int val = heap.get(0);
-            heap.set (0, heap.get(heap.size()-1));
-            heap.remove (heap.size()-1);
+            heap.set(0, heap.get(heap.size() - 1));
+            heap.remove(heap.size() - 1);
 
-            heapify (0);
+            heapify(0);
 
             return val;
         }
-        
-        private void heapify (int root) { // TC -> O(log2n)
 
-            int left = 2*root + 1;
+        private void heapify(int root) { // TC -> O(log2n)
+
+            int left = 2 * root + 1;
             int right = left + 1;
             int maxIdx = root;
-            
+
             if (left < heap.size() && heap.get(left) > heap.get(maxIdx)) {
                 maxIdx = left;
             }
@@ -108,21 +105,21 @@ public class _25_2_HeapTypes {
 
             if (maxIdx != root) {
                 int temp = heap.get(root);
-                heap.set (root, heap.get(maxIdx));
-                heap.set (maxIdx, temp);
+                heap.set(root, heap.get(maxIdx));
+                heap.set(maxIdx, temp);
 
-                heapify (maxIdx);
+                heapify(maxIdx);
             }
         }
 
-        void printHeap () {
-            while (! heap.isEmpty()) {
+        void printHeap() {
+            while (!heap.isEmpty()) {
                 System.out.println(remove());
             }
         }
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         MaxHeap minH = new MaxHeap();
         minH.add(3);
         minH.add(4);

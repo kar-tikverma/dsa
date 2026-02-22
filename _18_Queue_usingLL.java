@@ -1,10 +1,9 @@
 public class _18_Queue_usingLL {
-
     static class Node {
         int data;
         Node next;
 
-        Node (int data) {
+        Node(int data) {
             this.data = data;
             next = null;
         }
@@ -16,11 +15,11 @@ public class _18_Queue_usingLL {
         Node tail = null;
         int size = 0;
 
-        boolean isEmpty () {
+        boolean isEmpty() {
             return head == null;
         }
 
-        void add (int data) {
+        void add(int data) {
             Node newNode = new Node(data);
             size++;
             if (isEmpty()) {
@@ -31,7 +30,7 @@ public class _18_Queue_usingLL {
             tail = newNode;
         }
 
-        int remove () {
+        int remove() {
             if (isEmpty()) {
                 System.out.println("Underflow!");
                 return Integer.MIN_VALUE;
@@ -52,18 +51,18 @@ public class _18_Queue_usingLL {
             return head.data;
         }
 
-        void printQueue () {
+        void printQueue() {
             for (Node i = head; i != null; i = i.next) {
                 System.out.print(i.data + " ");
             }
         }
-        
+
     }
-    
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
         Queues ll = new Queues();
         ll.add(5);
-        //ll.add(98);
+        // ll.add(98);
         ll.remove();
         ll.add(9);
         ll.add(89);

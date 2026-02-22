@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class _34_2_DP_Knapsack01 {
-
     public static int knapsack01_rec(int[] val, int[] wt, int W) {
         return knapsack01_rec(0, val, wt, W);
     }

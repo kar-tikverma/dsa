@@ -1,6 +1,6 @@
 public class _24_RedBlackTrees {
+    public Node root; // root node
 
-    public Node root;//root node
     _24_RedBlackTrees() {
         super();
         root = null;
@@ -12,6 +12,7 @@ public class _24_RedBlackTrees {
         Node right;
         char colour;
         Node parent;
+
         Node(int data) {
             super();
             this.data = data; // only including data. not key
@@ -23,7 +24,7 @@ public class _24_RedBlackTrees {
     }
 
     // this function performs left rotation
-    Node rotateLeft (Node node) {
+    Node rotateLeft(Node node) {
         Node x = node.right;
         Node y = x.left;
 
@@ -31,15 +32,15 @@ public class _24_RedBlackTrees {
         node.right = y;
         node.parent = x; // parent resetting is also important.
 
-        if(y != null) {
+        if (y != null) {
             y.parent = node;
         }
 
         return x;
     }
-    
-    //this function performs right rotation
-    Node rotateRight (Node node) {
+
+    // this function performs right rotation
+    Node rotateRight(Node node) {
         Node x = node.left;
         Node y = x.right;
 
@@ -47,7 +48,7 @@ public class _24_RedBlackTrees {
         node.left = y;
         node.parent = x;
 
-        if(y != null) {
+        if (y != null) {
             y.parent = node;
         }
 
@@ -61,27 +62,26 @@ public class _24_RedBlackTrees {
     boolean rr = false;
     boolean lr = false;
     boolean rl = false;
-    // helper function for insertion. Actually this function performs all tasks in single pass only.
+    // helper function for insertion. Actually this function performs all tasks in
+    // single pass only.
 
-    Node insertHelp (Node root, int data) {
+    Node insertHelp(Node root, int data) {
         // f is true when RED RED conflict is there.
         boolean f = false;
 
-        //recursive calls to insert at proper position according to BST properties.
+        // recursive calls to insert at proper position according to BST properties.
         if (root == null) {
             return new Node(data);
-        }
-        else if (data < root.data) {
+        } else if (data < root.data) {
             root.left = insertHelp(root.left, data);
             root.left.parent = root;
-            if(root != this.root) {
-                if(root.colour=='R' && root.left.colour=='R') {
+            if (root != this.root) {
+                if (root.colour == 'R' && root.left.colour == 'R') {
                     f = true;
                 }
             }
-        }
-        else {
-            root.right = insertHelp(root.right,data);
+        } else {
+            root.right = insertHelp(root.right, data);
             root.right.parent = root;
             if (root != this.root) {
                 if (root.colour == 'R' && root.right.colour == 'R') {
@@ -98,22 +98,19 @@ public class _24_RedBlackTrees {
             root.colour = 'B';
             root.left.colour = 'R';
             this.ll = false;
-        }
-        else if (this.rr) {
+        } else if (this.rr) {
             root = rotateRight(root);
             root.colour = 'B';
             root.right.colour = 'R';
             this.rr = false;
-        }
-        else if (this.rl) {
+        } else if (this.rl) {
             root.right = rotateRight(root.right);
             root.right.parent = root;
             root = rotateLeft(root);
             root.colour = 'B';
             root.left.colour = 'R';
             this.rl = false;
-        }
-        else if (this.lr) {
+        } else if (this.lr) {
             root.left = rotateLeft(root.left);
             root.left.parent = root;
             root = rotateRight(root);
@@ -129,12 +126,12 @@ public class _24_RedBlackTrees {
             if (root.parent.right == root) {
                 // case when parent's sibling is black
                 if (root.parent.left == null || root.parent.left.colour == 'B') {
-                    //perform certaing rotation and recolouring. This will be done while backtracking.
-                    //Hence setting up respective flags.
+                    // perform certaing rotation and recolouring. This will be done while
+                    // backtracking.
+                    // Hence setting up respective flags.
                     if (root.left != null && root.left.colour == 'R') {
                         this.rl = true;
-                    }
-                    else if (root.right != null && root.right.colour == 'R') {
+                    } else if (root.right != null && root.right.colour == 'R') {
                         this.ll = true;
                     }
                 }
@@ -146,17 +143,14 @@ public class _24_RedBlackTrees {
                         root.parent.colour = 'R';
                     }
                 }
-            }
-            else {
+            } else {
                 if (root.parent.right == null || root.parent.right.colour == 'B') {
-                    if(root.left != null && root.left.colour == 'R') {
+                    if (root.left != null && root.left.colour == 'R') {
                         this.rr = true;
-                    }
-                    else if (root.right != null && root.right.colour == 'R') {
+                    } else if (root.right != null && root.right.colour == 'R') {
                         this.lr = true;
                     }
-                }
-                else {
+                } else {
                     root.parent.right.colour = 'B';
                     root.colour = 'B';
                     if (root.parent != this.root) {
@@ -166,22 +160,21 @@ public class _24_RedBlackTrees {
             }
             f = false;
         }
-        return(root);
+        return (root);
     }
 
     // function to insert data into tree.
-    public void insert (int data) {
+    public void insert(int data) {
         if (this.root == null) {
             this.root = new Node(data);
             this.root.colour = 'B';
-        }
-        else {
-            this.root = insertHelp(this.root,data);
+        } else {
+            this.root = insertHelp(this.root, data);
         }
     }
 
     // helper function to print inorder traversal
-    void inorderTraversalHelper (Node node) {
+    void inorderTraversalHelper(Node node) {
         if (node != null) {
             inorderTraversalHelper(node.left);
             System.out.printf("%d ", node.data);
@@ -189,8 +182,8 @@ public class _24_RedBlackTrees {
         }
     }
 
-    //function to print inorder traversal
-    public void inorderTraversal () {
+    // function to print inorder traversal
+    public void inorderTraversal() {
         inorderTraversalHelper(this.root);
     }
 
@@ -211,13 +204,14 @@ public class _24_RedBlackTrees {
     }
 
     // function to print the tree.
-    public void printTree () {
+    public void printTree() {
         printTreeHelper(this.root, 0);
     }
+
     public static void main(String[] args) {
         _24_RedBlackTrees t = new _24_RedBlackTrees();
-        int[] arr = {1, 4, 6, 3, 5, 7, 8, 2, 9};
-        for(int i = 0; i < 9; i++) {
+        int[] arr = { 1, 4, 6, 3, 5, 7, 8, 2, 9 };
+        for (int i = 0; i < 9; i++) {
             t.insert(arr[i]);
             System.out.println();
             t.inorderTraversal();

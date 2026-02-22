@@ -1,27 +1,26 @@
 public class _18_Queue_usingArrays {
     public static class Queues {
-
         int[] arr;
         int size;
         int front;
         int rear;
 
-        Queues (int n) {
+        Queues(int n) {
             arr = new int[n];
             size = n;
             front = -1;
             rear = -1;
         }
 
-        boolean isEmpty () {
+        boolean isEmpty() {
             return front == -1;
         }
 
-        boolean isFull () {
+        boolean isFull() {
             return (rear + 1) % size == front;
         }
 
-        void add (int data) {
+        void add(int data) {
             if (isFull()) {
                 System.out.println("Overflow!!");
                 return;
@@ -29,11 +28,11 @@ public class _18_Queue_usingArrays {
             if (isEmpty()) {
                 front++;
             }
-            rear = (rear+1) % size;
+            rear = (rear + 1) % size;
             arr[rear] = data;
         }
 
-        int remove () {
+        int remove() {
             if (isEmpty()) {
                 System.out.println("Underflow!!");
                 return Integer.MIN_VALUE;
@@ -41,14 +40,13 @@ public class _18_Queue_usingArrays {
             int val = arr[front];
             if (rear == front) {
                 rear = front = -1;
-            }
-            else {
-                front = (front+1) % size;
+            } else {
+                front = (front + 1) % size;
             }
             return val;
         }
 
-        int peek () {
+        int peek() {
             if (isEmpty()) {
                 System.out.println("Queue is Empty!");
                 return Integer.MIN_VALUE;
@@ -56,7 +54,7 @@ public class _18_Queue_usingArrays {
             return arr[front];
         }
 
-        void printQueue () {
+        void printQueue() {
             if (isEmpty()) {
                 System.out.println("Queue is Empty!");
                 return;
@@ -71,8 +69,8 @@ public class _18_Queue_usingArrays {
             System.out.println(arr[rear]);
         }
     }
-    
-    public static void main (String[] args) {
+
+    public static void main(String[] args) {
         Queues q = new Queues(4);
         q.add(1);
         q.add(6);

@@ -1,12 +1,16 @@
-import java.util.*;
-public class _21_BinaryTrees {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
+public class _21_BinaryTrees {
     static class Node {
         int data;
         Node left;
         Node right;
 
-        Node (int data) {
+        Node(int data) {
             this.data = data;
             left = null;
             right = null;
@@ -14,11 +18,10 @@ public class _21_BinaryTrees {
     }
 
     static class BinaryTree {
-
         Node root = null;
         int idx = -1;
 
-        Node buildTree (int[] nodes) {
+        Node buildTree(int[] nodes) {
             idx++;
             if (nodes[idx] == -1) {
                 return null;
@@ -33,7 +36,7 @@ public class _21_BinaryTrees {
             return newNode;
         }
 
-        void printPreorder (Node root) {
+        void printPreorder(Node root) {
             if (root == null) {
                 return;
             }
@@ -41,8 +44,8 @@ public class _21_BinaryTrees {
             printPreorder(root.left);
             printPreorder(root.right);
         }
-        
-        void printInorder (Node root) {
+
+        void printInorder(Node root) {
             if (root == null) {
                 return;
             }
@@ -51,7 +54,7 @@ public class _21_BinaryTrees {
             printInorder(root.right);
         }
 
-        void printPostorder (Node root) {
+        void printPostorder(Node root) {
             if (root == null) {
                 return;
             }
@@ -60,14 +63,14 @@ public class _21_BinaryTrees {
             System.out.print(root.data + " ");
         }
 
-        void printLevelOrder () {
+        void printLevelOrder() {
             if (root == null) {
                 return;
             }
             Queue<Node> q = new LinkedList<>();
             q.add(root);
             q.add(null);
-            while (! q.isEmpty()) {
+            while (!q.isEmpty()) {
                 Node currNode = q.remove();
                 if (currNode == null) {
                     if (q.isEmpty()) {
@@ -88,28 +91,28 @@ public class _21_BinaryTrees {
             System.out.println();
         }
 
-        int findHeight (Node root) {
+        int findHeight(Node root) {
             if (root == null) {
                 return 0;
             }
-            return (int)Math.max(findHeight(root.left), findHeight(root.right)) + 1;
+            return (int) Math.max(findHeight(root.left), findHeight(root.right)) + 1;
         }
 
-        int countNodes (Node root) {
+        int countNodes(Node root) {
             if (root == null) {
                 return 0;
             }
             return countNodes(root.left) + countNodes(root.right) + 1;
         }
 
-        int sum (Node root) {
+        int sum(Node root) {
             if (root == null) {
                 return 0;
             }
-            return root.data + sum (root.left) + sum (root.right);
+            return root.data + sum(root.left) + sum(root.right);
         }
 
-        int findDiameter2 (Node root) { // TC -> O(n^2)
+        int findDiameter2(Node root) { // TC -> O(n^2)
             if (root == null) {
                 return 0;
             }
@@ -120,19 +123,20 @@ public class _21_BinaryTrees {
 
             int dia = leftHeight + rightHeight + 1;
 
-            return Math.max (dia, Math.max (leftDia, rightDia));
+            return Math.max(dia, Math.max(leftDia, rightDia));
         }
 
         static class Info {
             int diameter;
             int height;
 
-            Info (int d, int h) {
+            Info(int d, int h) {
                 diameter = d;
                 height = h;
             }
         }
-        Info findDiameter (Node root) { // TC -> O(n)
+
+        Info findDiameter(Node root) { // TC -> O(n)
             if (root == null) {
                 return new Info(0, 0);
             }
@@ -141,23 +145,24 @@ public class _21_BinaryTrees {
             Info rightInfo = findDiameter(root.right);
 
             int diameter = leftInfo.height + rightInfo.height + 1;
-            
-            return new Info (Math.max(diameter, Math.max (leftInfo.diameter, rightInfo.diameter)),
-                                Math.max(leftInfo.height, rightInfo.height) + 1);
+
+            return new Info(Math.max(diameter, Math.max(leftInfo.diameter, rightInfo.diameter)),
+                    Math.max(leftInfo.height, rightInfo.height) + 1);
         }
-        
-        boolean isSubTree (Node root, Node subRoot) {
+
+        boolean isSubTree(Node root, Node subRoot) {
             if (root == null) {
                 return false;
             }
             if (root.data == subRoot.data) {
-                if (equals (root, subRoot)) {
+                if (equals(root, subRoot)) {
                     return true;
                 }
             }
             return isSubTree(root.left, subRoot) || isSubTree(root.right, subRoot);
         }
-        boolean equals (Node root1, Node root2) {
+
+        boolean equals(Node root1, Node root2) {
             if (root1 == null && root2 == null) {
                 return true;
             }
@@ -172,19 +177,20 @@ public class _21_BinaryTrees {
             Node node;
             int horDist;
 
-            INFO (Node n, int hd) {
+            INFO(Node n, int hd) {
                 node = n;
                 horDist = hd;
             }
         }
-        void topView (Node root) {
+
+        void topView(Node root) {
             Queue<INFO> q = new LinkedList<>();
             HashMap<Integer, Node> map = new HashMap<>();
             int min = 0, max = 0;
             q.add(new INFO(root, 0));
             q.add(null);
 
-            while (! q.isEmpty()) {
+            while (!q.isEmpty()) {
                 INFO curr = q.remove();
                 if (curr == null) {
                     if (q.isEmpty()) {
@@ -193,16 +199,16 @@ public class _21_BinaryTrees {
                     q.add(null);
                     continue;
                 }
-                if (! map.containsKey(curr.horDist)) {
-                    map.put (curr.horDist, curr.node);
+                if (!map.containsKey(curr.horDist)) {
+                    map.put(curr.horDist, curr.node);
                 }
                 if (curr.node.left != null) {
-                    q.add(new INFO(curr.node.left, curr.horDist-1));
-                    min = Math.min(min, curr.horDist-1);
+                    q.add(new INFO(curr.node.left, curr.horDist - 1));
+                    min = Math.min(min, curr.horDist - 1);
                 }
                 if (curr.node.right != null) {
-                    q.add(new INFO(curr.node.right, curr.horDist+1));
-                    max = Math.max(max, curr.horDist+1);
+                    q.add(new INFO(curr.node.right, curr.horDist + 1));
+                    max = Math.max(max, curr.horDist + 1);
                 }
             }
 
@@ -211,10 +217,11 @@ public class _21_BinaryTrees {
             }
         }
 
-        void KthLvl (int K) {
+        void KthLvl(int K) {
             KthLvl_Aux(root, K, 0);
         }
-        private void KthLvl_Aux (Node root, int K, int currLvl) {
+
+        private void KthLvl_Aux(Node root, int K, int currLvl) {
             if (root == null) {
                 return;
             }
@@ -222,26 +229,27 @@ public class _21_BinaryTrees {
                 System.out.print(root.data + "  ");
                 return;
             }
-            KthLvl_Aux(root.left, K, currLvl+1);
-            KthLvl_Aux(root.right, K, currLvl+1);
+            KthLvl_Aux(root.left, K, currLvl + 1);
+            KthLvl_Aux(root.right, K, currLvl + 1);
         }
 
-        Node LowestCommonAncestor (int n1, int n2) { // TC -> O(n), SC -> O(n)
+        Node LowestCommonAncestor(int n1, int n2) { // TC -> O(n), SC -> O(n)
             List<Node> n1_path = new ArrayList<>();
             List<Node> n2_path = new ArrayList<>();
 
-            getPath (root, n1, n1_path);
-            getPath (root, n2, n2_path);
+            getPath(root, n1, n1_path);
+            getPath(root, n2, n2_path);
 
             int i = 0;
-            for (; i < Math.min (n1_path.size(), n2_path.size()); i++) {
+            for (; i < Math.min(n1_path.size(), n2_path.size()); i++) {
                 if (n1_path.get(i) != n2_path.get(i)) {
-                    return n1_path.get(i-1);
+                    return n1_path.get(i - 1);
                 }
             }
-            return n1_path.get(i-1);
+            return n1_path.get(i - 1);
         }
-        private boolean getPath (Node root, int nodeValue, List<Node> node_path) {
+
+        private boolean getPath(Node root, int nodeValue, List<Node> node_path) {
             if (root == null) {
                 return false;
             }
@@ -259,10 +267,11 @@ public class _21_BinaryTrees {
             return false;
         }
 
-        Node LCA (int n1, int n2) { // TC -> O(n), SC -> O(1)
+        Node LCA(int n1, int n2) { // TC -> O(n), SC -> O(1)
             return LCA_Aux(root, n1, n2);
         }
-        private Node LCA_Aux (Node root, int n1, int n2) {
+
+        private Node LCA_Aux(Node root, int n1, int n2) {
             if (root == null || root.data == n1 || root.data == n2) {
                 return root;
             }
@@ -279,11 +288,12 @@ public class _21_BinaryTrees {
             return root;
         }
 
-        int minDistance (int n1, int n2) {
+        int minDistance(int n1, int n2) {
             Node lca = LCA(n1, n2);
             return findDistance(lca, n1) + findDistance(lca, n2);
         }
-        private int findDistance (Node n1, int n2) {
+
+        private int findDistance(Node n1, int n2) {
             if (n1 == null) {
                 return -1;
             }
@@ -302,10 +312,11 @@ public class _21_BinaryTrees {
             return leftDist + 1;
         }
 
-        void KthAncestor (int K, int n) {
+        void KthAncestor(int K, int n) {
             KthAncestor_Aux(root, K, n);
         }
-        private int KthAncestor_Aux (Node root, int K, int n) {
+
+        private int KthAncestor_Aux(Node root, int K, int n) {
             if (root == null) {
                 return -1;
             }
@@ -313,10 +324,10 @@ public class _21_BinaryTrees {
                 return 0;
             }
 
-            int leftDist = KthAncestor_Aux (root.left, K, n);
+            int leftDist = KthAncestor_Aux(root.left, K, n);
 
             if (leftDist == -1) {
-                int rightDist = KthAncestor_Aux (root.right, K, n);
+                int rightDist = KthAncestor_Aux(root.right, K, n);
                 if (rightDist == -1) {
                     return -1;
                 }
@@ -331,10 +342,11 @@ public class _21_BinaryTrees {
             return leftDist + 1;
         }
 
-        void sumTree () {
+        void sumTree() {
             sumTree_Aux(root);
         }
-        private int sumTree_Aux (Node root) {
+
+        private int sumTree_Aux(Node root) {
             if (root == null) {
                 return 0;
             }
@@ -344,24 +356,27 @@ public class _21_BinaryTrees {
             return val + root.data;
         }
 
-        boolean isUnivalued () {
+        boolean isUnivalued() {
             return isUnivalued(root);
         }
-        private boolean isUnivalued (Node root) {
+
+        private boolean isUnivalued(Node root) {
             if (root == null) {
                 return true;
             }
-            if ((root.left != null && root.left.data != root.data) || (root.right != null && root.right.data != root.data)) {
+            if ((root.left != null && root.left.data != root.data)
+                    || (root.right != null && root.right.data != root.data)) {
                 return false;
             }
 
             return isUnivalued(root.left) && isUnivalued(root.right);
         }
 
-        void mirror () {
-            mirror (root);
+        void mirror() {
+            mirror(root);
         }
-        private void mirror (Node root) {
+
+        private void mirror(Node root) {
             if (root == null) {
                 return;
             }
@@ -374,10 +389,11 @@ public class _21_BinaryTrees {
             mirror(root.right);
         }
 
-        void deleteLeafNodes_containing_x (int x) {
+        void deleteLeafNodes_containing_x(int x) {
             deleteLeaf_Aux(root, x);
         }
-        private Node deleteLeaf_Aux (Node root, int x) {
+
+        private Node deleteLeaf_Aux(Node root, int x) {
             if (root == null) {
                 return null;
             }
@@ -391,11 +407,12 @@ public class _21_BinaryTrees {
             return root;
         }
 
-        void printDuplicateSubtreeRoots () {
+        void printDuplicateSubtreeRoots() {
             HashMap<String, Integer> map = new HashMap<>();
             inorder(root, map);
         }
-        private String inorder (Node node, HashMap<String, Integer> dup){
+
+        private String inorder(Node node, HashMap<String, Integer> dup) {
             if (node == null) {
                 return "";
             }
@@ -406,11 +423,10 @@ public class _21_BinaryTrees {
             str += ")";
             if (dup.get(str) != null) {
                 if (dup.get(str) == 1) {
-                    System.out.print (node.data + " ");
+                    System.out.print(node.data + " ");
                 }
-                dup.put (str, dup.get(str) + 1);
-            }
-            else {
+                dup.put(str, dup.get(str) + 1);
+            } else {
                 dup.put(str, 1);
             }
             return str;
@@ -419,47 +435,50 @@ public class _21_BinaryTrees {
         static class Result {
             int val;
 
-            Result (int data) {
+            Result(int data) {
                 val = data;
             }
         }
-        int maximumPathSum () {
+
+        int maximumPathSum() {
             Result res = new Result(Integer.MIN_VALUE);
             maximumPathSum_Aux(root, res);
             return res.val;
         }
-        private int maximumPathSum_Aux (Node root, Result res) {
+
+        private int maximumPathSum_Aux(Node root, Result res) {
             if (root == null) {
                 return 0;
             }
 
             int leftSum = maximumPathSum_Aux(root.left, res);
             int rightSum = maximumPathSum_Aux(root.right, res);
-            int max_single = Math.max(Math.max (leftSum, rightSum) + root.data, root.data);
-            int max_all = Math.max (max_single, leftSum + rightSum + root.data);
+            int max_single = Math.max(Math.max(leftSum, rightSum) + root.data, root.data);
+            int max_all = Math.max(max_single, leftSum + rightSum + root.data);
 
-            res.val = Math.max (res.val, max_all);
+            res.val = Math.max(res.val, max_all);
 
             return max_single;
         }
-        
-        public int minDepth_dfs (Node root) {
+
+        public int minDepth_dfs(Node root) {
             if (root == null) {
                 return 0;
             }
-            
-            int[] dep = {Integer.MAX_VALUE};
-            minDepth_Util (root, dep, 1);
+
+            int[] dep = { Integer.MAX_VALUE };
+            minDepth_Util(root, dep, 1);
             return dep[0];
         }
-        private void minDepth_Util (Node root, int[] dep, int currDep) {
+
+        private void minDepth_Util(Node root, int[] dep, int currDep) {
             if (currDep > dep[0]) {
                 return;
             }
             if (root.left != null) {
                 minDepth_Util(root.left, dep, currDep + 1);
             }
-            
+
             if (root.right != null) {
                 minDepth_Util(root.right, dep, currDep + 1);
             }
@@ -469,14 +488,14 @@ public class _21_BinaryTrees {
             }
         }
 
-        public int minDepth_bfs (Node root) {
+        public int minDepth_bfs(Node root) {
             if (root == null)
                 return 0;
             Queue<Node> q = new LinkedList<>();
             q.add(root);
             q.add(null);
             int depth = 1;
-            while (! q.isEmpty()){
+            while (!q.isEmpty()) {
                 Node curr = q.poll();
                 if (curr == null) {
                     q.add(null);
@@ -488,16 +507,16 @@ public class _21_BinaryTrees {
                 if (curr.left != null) {
                     q.add(curr.left);
                 }
-                if (curr.right != null){
+                if (curr.right != null) {
                     q.add(curr.right);
                 }
             }
-    
+
             return 0;
         }
     }
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         // int[] n = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
         BinaryTree tree = new BinaryTree();
         tree.root = new Node(3);
