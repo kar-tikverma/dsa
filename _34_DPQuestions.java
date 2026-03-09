@@ -221,7 +221,7 @@ public class _34_DPQuestions {
         return maxSum == Long.MIN_VALUE ? 0 : maxSum;
     }
 
-    class Leetcode_3129 {
+    public class Leetcode_3129 {
         public int numberOfStableArrays(int zero, int one, int limit) {
             final long MOD = 1000000007;
             long[][][] dp = new long[zero + 1][one + 1][2];
